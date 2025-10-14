@@ -1,7 +1,16 @@
-def print_num(num):
-    print(num, end='')
+def num(num):
+    print(num, end="")
 
-номер = "88005553535"
-for цифра in номер:
-    print_num(цифра)
-print()
+num(8)
+num(8)
+num(0)
+num(0)
+num(5)
+num(5)
+num(5)
+num(3)
+num(5)
+num(3)
+num(5)
+
+
