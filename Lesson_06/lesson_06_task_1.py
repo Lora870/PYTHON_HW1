@@ -15,8 +15,11 @@ try:
     button = driver.find_element(By.CSS_SELECTOR, '.btn-primary')
     button.click()
     driver.implicitly_wait(20)
+
     # Шаг 4: Ждём появления зелёной плашки и печатаем
     content = driver.find_element(By.CSS_SELECTOR, "#content")
+    txt = content.find_element(By.CSS_SELECTOR, "p.bg-success").text
+    print(txt)
 
 finally:
     driver.quit()

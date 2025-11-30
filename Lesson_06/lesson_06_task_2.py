@@ -24,5 +24,9 @@ try:
     button = driver.find_element(By.CSS_SELECTOR, "#updatingButton")
     button.click()
 
+    # Шаг 6: Ждём изменения кнопки и получаем текст
+    txt = driver.find_element(By.CSS_SELECTOR, "#updatingButton").text
+    print(txt)
+
 finally:
     driver.quit()
