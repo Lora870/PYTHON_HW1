@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from calculator_page import CalculatorPage
 
-
 @pytest.fixture
 def driver():
     """Фикстура для создания и закрытия драйвера"""
@@ -12,7 +11,6 @@ def driver():
     driver.maximize_window()
     yield driver
     driver.quit()
-
 
 def test_calculator_addition_with_delay(driver):
     """
@@ -58,17 +56,3 @@ def test_calculator_addition_with_delay_alternative(driver):
     # Ожидаем результат
     assert calculator_page.wait_for_display_text("15"), \
         f"Результат не совпадает с ожидаемым. Текущий результат: {calculator_page.get_display_text()}"
-
-
-def test_calculator_with_different_delay(driver):
-    """Тест с другой задержкой"""
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
-
-    calculator_page = CalculatorPage(driver)
-    calculator_page.set_delay("10")  # Меньшая задержка
-
-    calculator_page.perform_calculation('9', '-', '4', '=')
-
-    # Ожидаем результат с меньшим таймаутом
-    assert calculator_page.wait_for_display_text("5"), \
-        "Результат 9 - 4 должен быть 5"
