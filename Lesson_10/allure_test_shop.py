@@ -30,30 +30,26 @@ End-to-end тест, проверяющий полный процесс поку
 @allure.severity(allure.severity_level.CRITICAL)
 def test_shop(driver):
     auth = AuthPage(driver)
-    with allure.step("Авторизация покупателя"):
-        with allure.step("Ввод логина и пароля"):
-            auth.login('standard_user', 'secret_sauce')
-        with allure.step("Кликаем по кнопке 'Login'"):
-            auth.login_button()
+    with allure.step("Ввод логина и пароля"):
+        auth.login('standard_user', 'secret_sauce')
+    with allure.step("Кликаем по кнопке 'Login'"):
+        auth.login_button()
 
     main = MainPage(driver)
-    with allure.step("Добавление товаров в корзину"):
-        with allure.step("Выбор товаров"):
-            main.selection_of_product()
-        with allure.step("Переход в корзину"):
-            main.go_to_cart()
+    with allure.step("Выбор товаров"):
+        main.selection_of_product()
+    with allure.step("Переход в корзину"):
+        main.go_to_cart()
 
     with allure.step("Подтверждение состава корзины"):
         cart = CartPage(driver)
         cart.checkout()
 
     order = OrderPage(driver)
-    with allure.step("Отправка данных покупателя и получение итоговой стоимости заказа"):
-        with allure.step("Отправка данных покупателя"):
-            order.information_of_buyer('Natalya', 'Pozdnyakova', '6239128745')
-            order.button_continue()
-        with allure.step("Получение итоговой суммы заказа"):
-            total = order.get_result()
-
+    with allure.step("Отправка данных покупателя"):
+        order.information_of_buyer('Natalya', 'Pozdnyakova', '6239128745')
+        order.button_continue()
+    with allure.step("Получение итоговой суммы заказа"):
+        total = order.get_result()
     with allure.step("Проверка итоговой суммы заказа"):
         assert total == '$58.29'
