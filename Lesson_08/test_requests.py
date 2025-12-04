@@ -1,21 +1,17 @@
 import requests
-
-
-base_url = "https://ru.yougile.com/api-v2"
-key = "EUotQ3Czws5xl-ie-W+pQe2JXR1KyrClJi7SXPA5lRQGxr8Z8yGfib0P8QrLATub"
-headers= {"Authorization": f"Bearer {key}"}
+from config import base_url, headers, title
 
 
 def test_create_project():
     body={
-    "title": "Тестовый проект от 15 мая"
+    "title": title
     }
     r = requests.post(base_url+"/projects", json=body, headers=headers)
     assert r.status_code == 201
 
 def test_change_project():
     body={
-    "title": "Тестовый проект от 15 мая"
+    "title": title
     }
     r = requests.post(base_url+"/projects", json=body, headers=headers)
     assert r.status_code == 201
@@ -28,18 +24,19 @@ def test_change_project():
 
 def test_get_project():
     body = {
-        "title": "Тестовый проект от 15 мая"
+        "title": title
     }
     r = requests.post(base_url + "/projects", json=body, headers=headers)
     assert r.status_code == 201
     id = r.json()["id"]
     r2 = requests.get(base_url + "/projects/" + id, headers=headers)
     assert r2.status_code == 200
+    assert r2.json()["title"] == "Новый проект"
 
 # негативные
 def test_create_project_negative():
     body={
-    "title": ""
+    "title": title
     }
     r = requests.post(base_url+"/projects", json=body, headers=headers)
     assert r.status_code == 400
